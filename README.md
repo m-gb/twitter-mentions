@@ -1,11 +1,21 @@
 # Twitter Mentions
 
-This is a command line application which searches Twitter for a given number of tweets that mention a given username.
+This is a command line application which searches Twitter for the 5 most recent tweets that mention a given Twitter screen name.
+
+There are two search methods in the application:
+
+- `use_oauth`, the default method, uses the OAuth gem. It is faster but requires both a consumer key and an access token.
+- `use_twitter` uses the Twitter gem. It is slower but requires only a consumer key.
+
+## Usage
 
 To run the application, execute the following in a terminal:
 ```
-$ ./search_tweets.rb <username> <number> 
+$ ./search_tweets.rb <screen name> <method> 
 ```
-Notes:
-- The application requires two files to be present in its directory, called `access_token` and `consumer_key`, which can be generated at https://apps.twitter.com/.
-- if the application is run without arguments, it will ask the user to provide the username and return 5 tweets by default.
+Without arguments, the application will ask for a screen name and use the `use_oauth` method.
+
+If a screen name is provided, `twitter` can be specified as a secondary argument to use the `use_twitter` method.
+
+Note:
+The application requires two files to be present in its directory, called `access_token` and `consumer_key`, which can be generated at https://apps.twitter.com/.
