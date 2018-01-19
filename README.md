@@ -4,7 +4,7 @@ This is a command line application which searches Twitter for a given number of 
 
 To run the application, execute the following in a terminal:
 ```
-$ ./search_tweets.rb <username> <count> 
+$ ./search_tweets.rb <username> <number> 
 ```
 Notes:
 - The application requires two files to be present in its directory, called `access_token` and `consumer_key`, which can be generated at https://apps.twitter.com/.
