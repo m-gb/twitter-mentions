@@ -9,6 +9,9 @@ There are two search methods in the application:
 
 ## Usage
 
+In order to use this application, two key-secret pairs are required, which can be generated at https://apps.twitter.com/.
+They need to be saved into `access_token.txt` and `consumer_key.txt`, examples are included in this project.
+
 To run the application, execute the following in a terminal:
 ```
 $ ./search_tweets.rb <username> <method> 
@@ -16,6 +19,3 @@ $ ./search_tweets.rb <username> <method>
 Without arguments, the application will ask for a username and use the `use_oauth` method.
 
 If a username is provided, `twitter` can be specified as a secondary argument to use the `use_twitter` method.
-
-Note:
-The application requires two files to be present in its directory, called `access_token` and `consumer_key`, which can be generated at https://apps.twitter.com/.

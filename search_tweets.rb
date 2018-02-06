@@ -7,8 +7,8 @@ require 'twitter'
 username = ARGV[0]
 method = ARGV[1]
 
-@consumer_key, @consumer_secret = File.read('./consumer_key').split("\n")
-@access_token, @access_secret = File.read('./access_token').split("\n")
+@consumer_key, @consumer_secret = File.read('./consumer_key.txt').split("\n")
+@access_token, @access_secret = File.read('./access_token.txt').split("\n")
 
 def use_oauth(username)
   # Returns a consumer object which is required to request an oauth access token.
