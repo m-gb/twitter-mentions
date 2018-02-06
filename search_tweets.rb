@@ -7,7 +7,25 @@ require 'twitter'
 search_term = ARGV[0]
 method = ARGV[1]
 
+def load_files
+  begin
+    # Reads access_token.txt and consumer_key.txt from the script's directory.
+    @consumer_key, @consumer_secret = File.read("#{__dir__}/consumer_key.txt").split("\n")
+    @access_token, @access_secret = File.read("#{__dir__}/access_token.txt").split("\n")
+    unless [@access_token, @access_secret, @consumer_key, @consumer_secret].all? { |value| value.match(/^([a-zA-z0-9\-])+$/) }
+      raise RegexpError.new('One or more key-secret pairs are incorrect, see README.md for more information.')
+    end
+  rescue Errno::ENOENT => e # Is raised when one of the files is not found.
+    puts "File not found, see README.md for more information.\nExiting..."
+    exit
+  rescue RegexpError => e
+    puts "#{e.message}\nExiting..."
+    exit
+  end
+end
+
 def use_oauth(username)
+  load_files
   # Returns a consumer object which is required to request an oauth access token.
   consumer = OAuth::Consumer.new( @consumer_key, @consumer_secret,
                                   { site: 'https://api.twitter.com/',
@@ -28,6 +46,7 @@ def use_oauth(username)
 end
 
 def use_twitter(username)
+  load_files
   client = Twitter::REST::Client.new do |config|
     config.consumer_key = @consumer_key
     config.consumer_secret = @consumer_secret
@@ -42,21 +61,6 @@ def use_twitter(username)
     puts "Network error, please check your internet connection.\nExiting..."
     exit
   end
-end
-
-begin
-  # Reads access_token.txt and consumer_key.txt from the script's directory.
-  @consumer_key, @consumer_secret = File.read("#{__dir__}/consumer_key.txt").split("\n")
-  @access_token, @access_secret = File.read("#{__dir__}/access_token.txt").split("\n")
-  unless [@access_token, @access_secret, @consumer_key, @consumer_secret].all? { |value| value.match(/^([a-zA-z0-9\-])+$/) }
-    raise RegexpError.new('One or more key-secret pairs are incorrect, see README.md for more information.')
-  end
-rescue Errno::ENOENT => e # Is raised when one of the files is not found.
-  puts "File not found, see README.md for more information.\nExiting..."
-  exit
-rescue RegexpError => e
-  puts "#{e.message}\nExiting..."
-  exit
 end
 
 unless search_term
