@@ -12,7 +12,7 @@ def load_files
     # Reads access_token.txt and consumer_key.txt from the script's directory.
     @consumer_key, @consumer_secret = File.read("#{__dir__}/consumer_key.txt").split("\n")
     @access_token, @access_secret = File.read("#{__dir__}/access_token.txt").split("\n")
-    unless [@access_token, @access_secret, @consumer_key, @consumer_secret].all? { |value| value.match(/^([a-zA-Z0-9\-])+$/) }
+    unless [@access_token, @access_secret, @consumer_key, @consumer_secret].all? { |value| value.match(/^([a-zA-Z0-9-])+$/) }
       raise RegexpError.new('One or more key-secret pairs are incorrect, see README.md for more information.')
     end
   rescue Errno::ENOENT => e # Is raised when one of the files is not found.
